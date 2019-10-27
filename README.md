@@ -1,3 +1,6 @@
 # ChineseLiteratureApp
 Yuting Jing 20086428. 
-A course project. It is designed for Chinese or English poetry learner or lover. One piece of Chinese work or English work has different versions of translation and probably audios on this app. People could learn translation, pronunciation, share, comments, upload and download from here.
+We can add and delete users, authors, poems and poems to their authors' works list. Users can register, login, logout, give thumbs up and take back the thumbs up to poems and author. We can also find poems by poemId, find authors by authorId, find users by userId. In login function, I also made a session-based authentication which mainly learned from this link: https://medium.com/createdd-notes/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359. 
+I use MongoDB Atlas to store my data, use GitHub to store my files, and use Postman to do some basic automated testing.
+Github link: https://github.com/Yayooooooo/ChinesePoetryApp
+Vedio link: https://youtu.be/pcwt5O3CgP0 If it doesn't work, use this link https://www.youtube.com/watch?v=pcwt5O3CgP0
