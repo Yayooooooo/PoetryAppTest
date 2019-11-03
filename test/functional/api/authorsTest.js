@@ -54,4 +54,34 @@ describe("Authors", () => {
                 });
         });
     });
+
+    describe("GET /authors/:id", () => {
+        describe("when the id is valid", () => {
+            it("should return the matching author", done => {
+                request(server)
+                    .get(`/authors/${validID}`)
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body[0]).to.have.property("name","Yeats");
+                        done(err);
+                    });
+            });
+        });
+        describe("when the id is invalid", () => {
+            it("should return the NOT found message", done => {
+                request(server)
+                    .get("/authors/9999")
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body.message).equals("Author NOT Found!");
+                        done(err);
+                    });
+            });
+        });
+    });
+
 });
