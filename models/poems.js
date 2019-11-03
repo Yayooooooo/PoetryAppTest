@@ -11,4 +11,6 @@ let PoemSchema = new Schema({
     { collection: 'poetry'}
 );
 
-module.exports = mongoose.model('Poem', PoemSchema);
+
+var Poem = mongoose.model('Poem', PoemSchema);
+module.exports = Poem;

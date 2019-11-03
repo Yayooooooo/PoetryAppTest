@@ -11,4 +11,7 @@ let AuthorSchema = new Schema({
     { collection: 'author'}
 );
 
-module.exports = mongoose.model('Author', AuthorSchema);
+
+
+var Author = mongoose.model('Author', AuthorSchema);
+module.exports = Author;

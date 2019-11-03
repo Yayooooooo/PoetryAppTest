@@ -1,8 +1,9 @@
 var express = require('express');
-var app = express();
 var path = require('path');
-var cookieParser = require('cookie-parser');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 let db = require('./routes/connectDB').connection;
@@ -13,6 +14,7 @@ const users = require('./routes/users');
 const poems = require("./routes/poems");
 const authors = require("./routes/authors");
 
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

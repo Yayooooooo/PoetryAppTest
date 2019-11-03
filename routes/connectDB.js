@@ -1,13 +1,13 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 let username = "YutingJing_24";
 let password = "cindyJing97";
 
 let mongodbUri="mongodb+srv://"+username + ":" + password +"@cluster0-evhrz.mongodb.net/artifactsdb";
 
-mongoose.connect(mongodbUri);
+mongoose.connect(mongodbUri,{useNewUrlParser: true, useUnifiedTopology: true});
 
-let db = mongoose.connection;
+var db = mongoose.connection;
 
 db.on('error', function (err) {
     console.log('Unable to Connect to [ ' + db.name + ' ]', err);
