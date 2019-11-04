@@ -139,8 +139,8 @@ describe("Users", () => {
             });
         });
     });
-    describe.only("POST /usersRegister", () => {
-        describe("when the all fields are filled and valid", () => {
+    describe("POST /usersRegister", () => {
+        describe("when the all fields are filled and valid, password and passwordConf match", () => {
             it("should return the matching user", done => {
                 const user = {
                     email :"LoveWS@ho.com",
@@ -164,6 +164,23 @@ describe("Users", () => {
                     .expect(200)
                     .then(res => {
                         expect(res.body[0]).to.have.property("username", "WilliamShakespeareFans");
+                    });
+            });
+        });
+        describe.only("when the not all fields are filled", () => {
+            it("should return the matching user", done => {
+                const user = {
+                    email :"LoveWS@ho.com",
+                    password: "trytry456",
+                    passwordConf: "trytry456",
+                    gender: "Female"
+                };
+                return request(server)
+                    .post("/usersRegister")
+                    .send(user)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("All fields required");
                     });
             });
         });
