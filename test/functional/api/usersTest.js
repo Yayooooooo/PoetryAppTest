@@ -31,7 +31,7 @@ describe("Users", () => {
             console.log(error);
         }
     });
-    describe.only("GET /users", () => {
+    describe("GET /users", () => {
         it("should return all the users", done => {
             request(server)
                 .get("/users")
@@ -52,6 +52,34 @@ describe("Users", () => {
                         done(e);
                     }
                 });
+        });
+    });
+    describe.only("GET /users/:id", () => {
+        describe("when the id is valid", () => {
+            it("should return the matching user", done => {
+                request(server)
+                    .get(`/users/${validID}`)
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body[0]).to.have.property("username","YeatsFans");
+                        done(err);
+                    });
+            });
+        });
+        describe("when the id is invalid", () => {
+            it("should return the NOT found message", done => {
+                request(server)
+                    .get("/users/9999")
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body.message).equals("User NOT Found!");
+                        done(err);
+                    });
+            });
         });
     });
 });
