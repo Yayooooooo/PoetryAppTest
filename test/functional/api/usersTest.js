@@ -6,6 +6,7 @@ const _ = require("lodash");
 
 let User = require("../../../models/users");
 let validID;
+let idForTest;
 
 describe("Users", () => {
     beforeEach(async () => {
@@ -54,7 +55,7 @@ describe("Users", () => {
                 });
         });
     });
-    describe.only("GET /users/:id", () => {
+    describe("GET /users/:id", () => {
         describe("when the id is valid", () => {
             it("should return the matching user", done => {
                 request(server)
@@ -78,6 +79,62 @@ describe("Users", () => {
                     .end((err, res) => {
                         expect(res.body.message).equals("User NOT Found!");
                         done(err);
+                    });
+            });
+        });
+    });
+    describe.only("POST /users/login", () => {
+        describe("when the logemail and logpassword are valid", () => {
+            it("should return confirmation message and update datastore", () => {
+                const user = {
+                    logemail :"LoveDF@haha.com",
+                    logpassword: "trytry345"
+                };
+                return request(server)
+                    .post("/users/login")
+                    .send(user)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("User Successfully Login!");
+                        validID = res.body.data;
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/users/${validID}`)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body[0]).to.have.property("username", "DufuFans");
+                    });
+            });
+        });
+        describe("when the logemail is invalid", () => {
+            it("should return information is wrong", () => {
+                const user = {
+                    logemail :"LoveF@haha.com",
+                    logpassword: "trytry345"
+                };
+                return request(server)
+                    .post("/users/login")
+                    .send(user)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("Wrong email or password!");
+                    });
+            });
+        });
+        describe("when the logpassword is invalid", () => {
+            it("should return information is wrong", () => {
+                const user = {
+                    logemail :"LoveDF@haha.com",
+                    logpassword: "try345"
+                };
+                return request(server)
+                    .post("/users/login")
+                    .send(user)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("Wrong email or password!");
                     });
             });
         });
