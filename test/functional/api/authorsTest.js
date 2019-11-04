@@ -1,7 +1,6 @@
 const chai = require("chai");
 const expect = chai.expect;
 const request = require("supertest");
-const MongoMemoryServer = require("mongodb-memory-server").MongoMemoryServer;
 let Author = require("../../../models/authors");
 
 const _ = require("lodash");
@@ -81,6 +80,31 @@ describe("Authors", () => {
                         done(err);
                     });
             });
+        });
+    });
+    describe.only("POST /authors", () => {
+        it("should return confirmation message and update datastore", () => {
+            const author = {
+                name:"Shakespeare",
+                introduction:"Great Great English play writer and poet"
+            };
+            return request(server)
+                .post("/authors")
+                .send(author)
+                .expect(200)
+                .then(res => {
+                    expect(res.body.message).equals("Author Successfully Added!");
+                    validID = res.body.data._id;
+                });
+        });
+        after(() => {
+            return request(server)
+                .get(`/authors/${validID}`)
+                .expect(200)
+                .then(res => {
+                    expect(res.body[0]).to.have.property("name", "Shakespeare");
+                    expect(res.body[0]).to.have.property("introduction","Great Great English play writer and poet");
+                });
         });
     });
 

@@ -3,22 +3,22 @@ var bcrypt = require('bcrypt');
 
 let Schema = mongoose.Schema;
 let UserSchema = new Schema({
-            username: {
-                    type: String,
-                    unique: true,
-                    required: true,
-                    trim: true
-            },
-            email: {
-                    type: String,
-                    unique: true,
-                    required: true,
-                    trim: true
-            },
-            password: {
-                    type: String,
-                    required: true,
-            },
+        username: {
+            type: String,
+            unique: true,
+            required: true,
+            trim: true
+        },
+        email: {
+            type: String,
+            unique: true,
+            required: true,
+            trim: true
+        },
+        password: {
+            type: String,
+            required: true,
+        },
         gender:String,
         likes: [{type: Schema.Types.ObjectId, ref: 'poems'}]
     },

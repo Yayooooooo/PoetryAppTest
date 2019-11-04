@@ -1,0 +1,5 @@
+file:
+    - test/functional/api/authorsTest.js
+timeout:
+    80000
+require: '@babel/register'
