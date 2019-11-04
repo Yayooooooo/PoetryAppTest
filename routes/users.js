@@ -44,7 +44,7 @@ router.addAUser = (req, res) => {
     }
     // If the email hasn't been registered
     //Add a new user to our list if all the fields are filled (Register)
-    if(req.body.email && req.body.username && req.body.password && req.body.passwordConf) {
+    if(req.body.email && req.body.username && req.body.password && req.body.passwordConf && req.body.gender) {
         var user = new User();
         user.username = req.body.username;
         user.email = req.body.email;

@@ -83,7 +83,7 @@ describe("Users", () => {
             });
         });
     });
-    describe.only("POST /users/login", () => {
+    describe("POST /users/login", () => {
         describe("when the logemail and logpassword are valid", () => {
             it("should return confirmation message and update datastore", () => {
                 const user = {
@@ -138,5 +138,35 @@ describe("Users", () => {
                     });
             });
         });
+    });
+    describe.only("POST /usersRegister", () => {
+        describe("when the all fields are filled and valid", () => {
+            it("should return the matching user", done => {
+                const user = {
+                    email :"LoveWS@ho.com",
+                    username:"WilliamShakespeareFan",
+                    password: "trytry456",
+                    passwordConf: "trytry456",
+                    gender: "Female"
+                };
+                return request(server)
+                    .post("/usersRegister")
+                    .send(user)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("User Successfully Added(Registered)!");
+                        validID = res.body.data._id;
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/users/${validID}`)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body[0]).to.have.property("username", "WilliamShakespeareFans");
+                    });
+            });
+        });
+
     });
 });
