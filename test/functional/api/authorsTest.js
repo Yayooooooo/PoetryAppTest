@@ -82,7 +82,7 @@ describe("Authors", () => {
             });
         });
     });
-    describe.only("POST /authors", () => {
+    describe("POST /authors", () => {
         it("should return confirmation message and update datastore", () => {
             const author = {
                 name:"Shakespeare",

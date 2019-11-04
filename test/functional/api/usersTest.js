@@ -31,7 +31,7 @@ describe("Users", () => {
             console.log(error);
         }
     });
-    describe("GET /users", () => {
+    describe.only("GET /users", () => {
         it("should return all the users", done => {
             request(server)
                 .get("/users")
