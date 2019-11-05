@@ -184,7 +184,7 @@ describe("Users", () => {
                     });
             });
         });
-        describe.only("when the password and passwordConf dont match", () => {
+        describe("when the password and passwordConf dont match", () => {
             it("should return error message", done => {
                 const user = {
                     email :"LoveWS@ho.com",
@@ -209,5 +209,24 @@ describe("Users", () => {
                     });*/
             });
         });
+    });
+    describe.only("DELETE /users", () => {
+        describe.only("when the id is valid", () => {
+            it("should return confirmation message and delete datastore", () => {
+                return request(server)
+                    .delete(`/users/${validID}`)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals('User Successfully Deleted!');
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/users/${validID}`)
+                    .expect(200)
+                    .expect([]);
+            });
+        });
+
     });
 });
