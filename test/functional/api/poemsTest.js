@@ -77,7 +77,7 @@ describe("Poems", () => {
             });
         });
     });
-    describe.only("POST /poems/login", () => {
+    describe("POST /poems/login", () => {
         describe("when the title and author are valid", () => {
             it("should return confirmation message and update datastore", () => {
                 const poem = {
@@ -125,5 +125,24 @@ describe("Poems", () => {
                     });
             });
         });
+    });
+    describe.only("DELETE /poems", () => {
+        describe("when the id is valid", () => {
+            it("should return confirmation message and delete datastore", () => {
+                return request(server)
+                    .delete(`/poems/${validID}`)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals('Poem Successfully Deleted!');
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/poems/${validID}`)
+                    .expect(200)
+                    .expect([]);
+            });
+        });
+        
     });
 });
