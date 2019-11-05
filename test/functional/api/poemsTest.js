@@ -20,13 +20,13 @@ describe("Poems", () => {
             poem.author = "Xiaoming"
             await poem.save();
 
-            poem = await Poem.findOne({poemname:"Xiaoming"});
+            poem = await Poem.findOne({author:"Xiaoming"});
             validID = poem._id;
         } catch (error) {
             console.log(error);
         }
     });
-    describe.only("GET /poems", () => {
+    describe("GET /poems", () => {
         it("should return all the poems", done => {
             request(server)
                 .get("/poems")
@@ -49,4 +49,20 @@ describe("Poems", () => {
                 });
         });
     });
+    describe.only("GET /poems/:id", () => {
+        describe("when the id is valid", () => {
+            it("should return the matching poem", done => {
+                request(server)
+                    .get(`/poems/${validID}`)
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body[0]).to.have.property("author","Xiaoming");
+                        done(err);
+                    });
+            });
+        });
+    });
+
 });
