@@ -5,3 +5,5 @@ file:
 timeout:
     100000
 require: '@babel/register'
+exit:
+    true

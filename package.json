@@ -4,7 +4,17 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "set NODE_ENV=test &&  mocha --exit   "
+    "test": "set NODE_ENV=test && nyc --reporter=html --reporter=text  mocha --exit "
+  },
+  "nyc": {
+    "reporter": [
+      "text-summary",
+      "html",
+      "cobertura"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "extension": [".ts"]
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
