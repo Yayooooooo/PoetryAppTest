@@ -2,11 +2,14 @@ const chai = require("chai");
 const expect = chai.expect;
 const request = require("supertest");
 let Author = require("../../../models/authors");
+let mockSession = require('mock-session');
 
 const _ = require("lodash");
 let server = require("../../../bin/www");
 let mongod;
 let db, validID;
+var app = require('../../../app');
+
 describe("Authors", () => {
     beforeEach(async () => {
         try {
@@ -25,6 +28,7 @@ describe("Authors", () => {
 
             author = await Author.findOne({ name:"Yeats" });
             validID = author._id;
+
         } catch (error) {
             console.log(error);
         }
@@ -107,7 +111,21 @@ describe("Authors", () => {
                 });
         });
     });
-    describe.only("PUT /authors/:id/works", () => {
+    describe.only("PUT /authors/:id/deleteWork", () => {
+        describe("when the id is valid", () => {
+            it("should return a message and the author work is added", () => {
+                const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
+                return request(server)
+                    .put(`/authors/${validID}/deleteWork`)
+                    .send(poemId)
+                    .expect(200)
+                    .then(resp => {
+                        expect(resp.body).to.include({message: "Work Successfully deleted!"});
+                    });
+            });
+        });
+    });
+    describe("PUT /authors/:id/works", () => {
         describe("when the id is valid", () => {
             it("should return a message and the author work is added", () => {
                 const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
@@ -144,4 +162,52 @@ describe("Authors", () => {
             });
         });
     });
+
+    /*describe.only("PUT /authors/:id/like", () => {
+        describe("when the id is valid", () => {
+            it("should return a message and the author is liked", () => {
+                const userCredentials = {
+                    email: 'LovYeats@lala.com',
+                    password: 'trytry123'
+                }
+                var authenticatedUser = request.agent(app);
+                before(function(done){
+                    authenticatedUser
+                        .post('/users/login')
+                        .send(userCredentials)
+                        .end(function(err, response){
+                            expect(response.statusCode).to.equal(200);
+                            done();
+                        });
+                });
+                authenticatedUser.put(`/authors/${validID}/like`)
+                    .expect(200)
+                    .then(resp => {
+                        expect(resp.body).to.include({message: "Author Successfully Liked!"});
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/authors/${validID}`)
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .then(resp => {
+                        expect(resp.body[0].works[0]).equals("5dc14e4fb7ee92384c501889");
+                    });
+            });
+        });*/
+        /*describe("when the id is invalid", () => {
+            it("should return information is wrong", () => {
+                const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
+                return request(server)
+                    .put(`/authors/34343/works`)
+                    .send(poemId)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("Author NOT Found!");
+                    });
+            });
+        });
+    });*/
 });

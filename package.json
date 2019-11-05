@@ -26,6 +26,7 @@
     "mongoose": "^5.7.7",
     "morgan": "~1.9.1",
     "nodemon": "^1.19.4",
+    "nom": "0.0.3",
     "serve-favicon": "^2.5.0",
     "superagent": "^5.1.0",
     "supertest": "^4.0.2"
@@ -38,6 +39,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
     "express-session": "^1.17.0",
+    "mock-session": "0.0.5",
     "mongodb-memory-server": "^6.0.1"
   }
 }

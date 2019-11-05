@@ -4,10 +4,10 @@ var app = require('../app');
 var request = require('supertest');
 
 //let's set up the data we need to pass to the login method
-const userCredentials = {
-    email: 'sponge@bob.com',
-    password: 'garyTheSnail'
-}
+    const userCredentials = {
+        email: 'sponge@bob.com',
+        password: 'garyTheSnail'
+    }
 //now let's login the user before we run any tests
 var authenticatedUser = request.agent(app);
 before(function(done){
@@ -35,4 +35,5 @@ describe('GET /profile', function(done){
             .expect('Location', '/login')
             .expect(302, done);
     });
-});*/
+});
+*/

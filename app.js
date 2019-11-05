@@ -57,17 +57,17 @@ app.delete('/users/:id', users.deleteUser);
 
 app.get('/poems', poems.findAllPoems);
 app.get('/poems/:id', poems.findOnePoem)
-app.post('/poems',poems.addPoem);
+app.post('/poems',poems.addPoem);/*
 app.put('/poems/:id/like', poems.incrementLikes);
-app.put('/poems/:id/unlike',poems.decreaseLikes);
+app.put('/poems/:id/unlike',poems.decreaseLikes);*/
 app.delete('/poems/:id', poems.deletePoem);
 // app.get('/poems/likes', poems.findTotalLikes);
 
 app.get('/authors', authors.findAllAuthors);
 app.get('/authors/:id', authors.findOneAuthor);
-app.post('/authors',authors.addAuthor);
+app.post('/authors',authors.addAuthor);/*
 app.put('/authors/:id/like',authors.incrementLikes);
-app.put('/authors/:id/unlike',authors.decreaseLikes);
+app.put('/authors/:id/unlike',authors.decreaseLikes);*/
 app.put('/authors/:id/works',authors.incrementWorks);
 app.put('/authors/:id/deleteWork',authors.deleteWorks);
 app.delete('/authors/:id', authors.deleteAuthor);
