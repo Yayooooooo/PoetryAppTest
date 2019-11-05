@@ -49,7 +49,7 @@ describe("Poems", () => {
                 });
         });
     });
-    describe.only("GET /poems/:id", () => {
+    describe("GET /poems/:id", () => {
         describe("when the id is valid", () => {
             it("should return the matching poem", done => {
                 request(server)
@@ -77,7 +77,7 @@ describe("Poems", () => {
             });
         });
     });
-    describe("POST /poems/login", () => {
+    describe.only("POST /poems/login", () => {
         describe("when the title and author are valid", () => {
             it("should return confirmation message and update datastore", () => {
                 const poem = {
@@ -85,12 +85,12 @@ describe("Poems", () => {
                     author: "XiaoHong"
                 };
                 return request(server)
-                    .post("/poems/login")
+                    .post("/poems")
                     .send(poem)
                     .expect(200)
                     .then(res => {
-                        expect(res.body.message).equals("Poem Successfully Login!");
-                        validID = res.body.data;
+                        expect(res.body.message).equals("Poem Successfully Added!");
+                        validID = res.body.data._id;
                     });
             });
             after(() => {
@@ -99,6 +99,29 @@ describe("Poems", () => {
                     .expect(200)
                     .then(res => {
                         expect(res.body[0]).to.have.property("author", "XiaoHong");
+                    });
+            });
+        });
+        describe("when the author not provided", () => {
+            it("should return confirmation message and update datastore", () => {
+                const poem = {
+                    title: "FirstPoem"
+                };
+                return request(server)
+                    .post("/poems")
+                    .send(poem)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("Poem Successfully Added!");
+                        validID = res.body.data._id;
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/poems/${validID}`)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body[0]).to.have.property("title", "FirstPoem");
                     });
             });
         });
