@@ -76,7 +76,31 @@ describe("Poems", () => {
                     });
             });
         });
-
     });
-
+    describe("POST /poems/login", () => {
+        describe("when the title and author are valid", () => {
+            it("should return confirmation message and update datastore", () => {
+                const poem = {
+                    title: "FirPoem",
+                    author: "XiaoHong"
+                };
+                return request(server)
+                    .post("/poems/login")
+                    .send(poem)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("Poem Successfully Login!");
+                        validID = res.body.data;
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/poems/${validID}`)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body[0]).to.have.property("author", "XiaoHong");
+                    });
+            });
+        });
+    });
 });
