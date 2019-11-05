@@ -210,8 +210,8 @@ describe("Users", () => {
             });
         });
     });
-    describe.only("DELETE /users", () => {
-        describe.only("when the id is valid", () => {
+    describe("DELETE /users", () => {
+        describe("when the id is valid", () => {
             it("should return confirmation message and delete datastore", () => {
                 return request(server)
                     .delete(`/users/${validID}`)
@@ -227,6 +227,13 @@ describe("Users", () => {
                     .expect([]);
             });
         });
-
+        describe.only("when the id is invalid", () => {
+            it("should return confirmation message and delete datastore", () => {
+                return request(server)
+                    .delete("/donations/1100001")
+                    .expect(404)
+                    .expect({});
+            });
+        });
     });
 });
