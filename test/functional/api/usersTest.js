@@ -163,12 +163,12 @@ describe("Users", () => {
                     .get(`/users/${validID}`)
                     .expect(200)
                     .then(res => {
-                        expect(res.body[0]).to.have.property("username", "WilliamShakespeareFans");
+                        expect(res.body[0]).to.have.property("username", "WilliamShakespeareFan");
                     });
             });
         });
-        describe.only("when the not all fields are filled", () => {
-            it("should return the matching user", done => {
+        describe("when the not all fields are filled", () => {
+            it("should return the err message", done => {
                 const user = {
                     email :"LoveWS@ho.com",
                     password: "trytry456",
@@ -184,6 +184,30 @@ describe("Users", () => {
                     });
             });
         });
-
+        describe.only("when the password and passwordConf dont match", () => {
+            it("should return error message", done => {
+                const user = {
+                    email :"LoveWS@ho.com",
+                    username:"WilliamShakespeareFan",
+                    password: "trytry456",
+                    passwordConf: "trytr456",
+                    gender: "Female"
+                };
+                return request(server)
+                    .post("/usersRegister")
+                    .send(user)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("Passwords do not match.");
+                    });
+                    /*.set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body.message).equals("Passwords do not match.");
+                        done(err);
+                    });*/
+            });
+        });
     });
 });

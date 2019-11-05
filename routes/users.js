@@ -37,14 +37,12 @@ router.findOneUser = (req, res) => {
 router.addAUser = (req, res) => {
     // confirm that user typed same password twice
     if (req.body.password !== req.body.passwordConf) {
-        var err = new Error('Passwords do not match.');
-        err.status = 400;
-        res.send("passwords dont match");
-        return next(err);
+        res.json({ message: "Passwords do not match."} );
+        // return next(err);
     }
     // If the email hasn't been registered
     //Add a new user to our list if all the fields are filled (Register)
-    if(req.body.email && req.body.username && req.body.password && req.body.passwordConf && req.body.gender) {
+    else if(req.body.email && req.body.username && req.body.password && req.body.passwordConf && req.body.gender) {
         var user = new User();
         user.username = req.body.username;
         user.email = req.body.email;
