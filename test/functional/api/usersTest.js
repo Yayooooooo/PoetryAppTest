@@ -227,7 +227,7 @@ describe("Users", () => {
                     .expect([]);
             });
         });
-        describe.only("when the id is invalid", () => {
+        describe("when the id is invalid", () => {
             it("should return confirmation message and delete datastore", () => {
                 return request(server)
                     .delete("/donations/1100001")
@@ -236,4 +236,21 @@ describe("Users", () => {
             });
         });
     });
+    describe.only("GET /usersLogout", () => {
+        describe("when the id is valid", () => {
+            it("should return the matching user", done => {
+                request(server)
+                    .get("/usersLogout")
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body.message).equals("Successfully log out!");
+                        done(err);
+                    });
+            });
+        });
+
+    });
+
 });
