@@ -236,7 +236,7 @@ describe("Users", () => {
             });
         });
     });
-    describe.only("GET /usersLogout", () => {
+    describe("GET /usersLogout", () => {
         describe("when the id is valid", () => {
             it("should return the matching user", done => {
                 request(server)
@@ -250,7 +250,6 @@ describe("Users", () => {
                     });
             });
         });
-
     });
 
 });
