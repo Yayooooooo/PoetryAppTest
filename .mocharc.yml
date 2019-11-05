@@ -2,5 +2,5 @@ file:
     - test/functional/api/authorsTest.js
     - test/functional/api/usersTest.js
 timeout:
-    10000
+    100000
 require: '@babel/register'
