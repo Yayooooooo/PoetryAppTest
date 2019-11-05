@@ -63,6 +63,20 @@ describe("Poems", () => {
                     });
             });
         });
+        describe("when the id is invalid", () => {
+            it("should return the NOT found message", done => {
+                request(server)
+                    .get("/poems/9999")
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        expect(res.body.message).equals("Poem NOT Found!");
+                        done(err);
+                    });
+            });
+        });
+
     });
 
 });
