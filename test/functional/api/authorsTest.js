@@ -124,6 +124,18 @@ describe("Authors", () => {
                     });
             });
         });
+        describe("when the id is invalid", () => {
+            it("should return information is wrong", () => {
+                const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
+                return request(server)
+                    .put(`/authors/34343/deleteWork`)
+                    .send(poemId)
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals("Author NOT Found!");
+                    });
+            });
+        });
     });
     describe("PUT /authors/:id/works", () => {
         describe("when the id is valid", () => {
