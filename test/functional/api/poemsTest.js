@@ -126,7 +126,7 @@ describe("Poems", () => {
             });
         });
     });
-    describe.only("DELETE /poems", () => {
+    describe("DELETE /poems", () => {
         describe("when the id is valid", () => {
             it("should return confirmation message and delete datastore", () => {
                 return request(server)
@@ -146,9 +146,11 @@ describe("Poems", () => {
         describe("when the id is invalid", () => {
             it("should return confirmation message and delete datastore", () => {
                 return request(server)
-                    .delete("/donations/1100001")
-                    .expect(404)
-                    .expect({});
+                    .delete("/poems/1100001")
+                    .expect(200)
+                    .then(res => {
+                        expect(res.body.message).equals('Poem NOT DELETED!');
+                    });
             });
         });
     });

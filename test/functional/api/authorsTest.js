@@ -107,5 +107,29 @@ describe("Authors", () => {
                 });
         });
     });
-
+    describe.only("PUT /authors/:id/works", () => {
+        describe("when the id is valid", () => {
+            it("should return a message and the author work is added", () => {
+                const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
+                return request(server)
+                    .put(`/authors/${validID}/works`)
+                    .send(poemId)
+                    .expect(200)
+                    .then(resp => {
+                        expect(resp.body).to.include({message: "Work Successfully Added!"});
+                        expect(resp.body.data.works[0]).equals("5dc14e4fb7ee92384c501889");
+                    });
+            });
+            after(() => {
+                return request(server)
+                    .get(`/authors/${validID}`)
+                    .set("Accept", "application/json")
+                    .expect("Content-Type", /json/)
+                    .expect(200)
+                    .then(resp => {
+                        expect(resp.body[0].works[0]).equals("5dc14e4fb7ee92384c501889");
+                    });
+            });
+        });
+    });
 });

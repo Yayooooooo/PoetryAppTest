@@ -141,7 +141,7 @@ describe("Users", () => {
     });
     describe("POST /usersRegister", () => {
         describe("when the all fields are filled and valid, password and passwordConf match", () => {
-            it("should return the matching user", done => {
+            it("should return the matching user", () => {
                 const user = {
                     email :"LoveWS@ho.com",
                     username:"WilliamShakespeareFan",
@@ -168,7 +168,7 @@ describe("Users", () => {
             });
         });
         describe("when the not all fields are filled", () => {
-            it("should return the err message", done => {
+            it("should return the err message", () => {
                 const user = {
                     email :"LoveWS@ho.com",
                     password: "trytry456",
@@ -185,7 +185,7 @@ describe("Users", () => {
             });
         });
         describe("when the password and passwordConf dont match", () => {
-            it("should return error message", done => {
+            it("should return error message", () => {
                 const user = {
                     email :"LoveWS@ho.com",
                     username:"WilliamShakespeareFan",
