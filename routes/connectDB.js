@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 let username = "YutingJing_24";
 let password = "cindyJing97";
@@ -9,12 +9,12 @@ mongoose.connect(mongodbUri,{useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
 
-db.on('error', function (err) {
-    console.log('Unable to Connect to [ ' + db.name + ' ]', err);
+db.on("error", function (err) {
+    console.log("Unable to Connect to [ " + db.name + " ]", err);
 });
 
-db.once('open', function () {
-    console.log('Successfully Connected to [ ' + db.name + ' ]');
+db.once("open", function () {
+    console.log("Successfully Connected to [ " + db.name + " ]");
 });
 
 

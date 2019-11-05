@@ -2,13 +2,10 @@ const chai = require("chai");
 const expect = chai.expect;
 const request = require("supertest");
 let Author = require("../../../models/authors");
-let mockSession = require('mock-session');
 
 const _ = require("lodash");
 let server = require("../../../bin/www");
-let mongod;
-let db, validID;
-var app = require('../../../app');
+let validID;
 
 describe("Authors", () => {
     beforeEach(async () => {
@@ -111,7 +108,7 @@ describe("Authors", () => {
                 });
         });
     });
-    describe.only("PUT /authors/:id/deleteWork", () => {
+    describe("PUT /authors/:id/deleteWork", () => {
         describe("when the id is valid", () => {
             it("should return a message and the author work is added", () => {
                 const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
@@ -128,7 +125,7 @@ describe("Authors", () => {
             it("should return information is wrong", () => {
                 const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
                 return request(server)
-                    .put(`/authors/34343/deleteWork`)
+                    .put("/authors/34343/deleteWork")
                     .send(poemId)
                     .expect(200)
                     .then(res => {
@@ -165,7 +162,7 @@ describe("Authors", () => {
             it("should return information is wrong", () => {
                 const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
                 return request(server)
-                    .put(`/authors/34343/works`)
+                    .put("/authors/34343/works")
                     .send(poemId)
                     .expect(200)
                     .then(res => {
@@ -209,7 +206,7 @@ describe("Authors", () => {
                     });
             });
         });*/
-        /*describe("when the id is invalid", () => {
+    /*describe("when the id is invalid", () => {
             it("should return information is wrong", () => {
                 const poemId = {poemId: "5dc14e4fb7ee92384c501889"};
                 return request(server)

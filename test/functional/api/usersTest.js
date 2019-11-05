@@ -6,7 +6,6 @@ const _ = require("lodash");
 
 let User = require("../../../models/users");
 let validID;
-let idForTest;
 
 describe("Users", () => {
     beforeEach(async () => {
@@ -14,14 +13,14 @@ describe("Users", () => {
             await User.deleteMany({});
             let user = new User();
             user.username = "YeatsFans";
-            user.email = "LovYeats@lala.com"
+            user.email = "LovYeats@lala.com";
             user.password= "trytry123";
             user.gender="Male";
             await user.save();
 
             user = new User();
             user.username = "DufuFans";
-            user.email = "LoveDF@haha.com"
+            user.email = "LoveDF@haha.com";
             user.password= "trytry345";
             user.gender="Female";
             await user.save();
@@ -200,7 +199,7 @@ describe("Users", () => {
                     .then(res => {
                         expect(res.body.message).equals("Passwords do not match.");
                     });
-                    /*.set("Accept", "application/json")
+                /*.set("Accept", "application/json")
                     .expect("Content-Type", /json/)
                     .expect(200)
                     .end((err, res) => {
@@ -217,7 +216,7 @@ describe("Users", () => {
                     .delete(`/users/${validID}`)
                     .expect(200)
                     .then(res => {
-                        expect(res.body.message).equals('User Successfully Deleted!');
+                        expect(res.body.message).equals("User Successfully Deleted!");
                     });
             });
             after(() => {

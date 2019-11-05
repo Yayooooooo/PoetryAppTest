@@ -12,12 +12,12 @@ describe("Poems", () => {
             await Poem.deleteMany({});
             let poem = new Poem();
             poem.title = "On children";
-            poem.author = "Kahlil Gibran"
+            poem.author = "Kahlil Gibran";
             await poem.save();
 
             poem = new Poem();
             poem.title = "MyPoem";
-            poem.author = "Xiaoming"
+            poem.author = "Xiaoming";
             await poem.save();
 
             poem = await Poem.findOne({author:"Xiaoming"});
@@ -133,7 +133,7 @@ describe("Poems", () => {
                     .delete(`/poems/${validID}`)
                     .expect(200)
                     .then(res => {
-                        expect(res.body.message).equals('Poem Successfully Deleted!');
+                        expect(res.body.message).equals("Poem Successfully Deleted!");
                     });
             });
             after(() => {
@@ -149,7 +149,7 @@ describe("Poems", () => {
                     .delete("/poems/1100001")
                     .expect(200)
                     .then(res => {
-                        expect(res.body.message).equals('Poem NOT DELETED!');
+                        expect(res.body.message).equals("Poem NOT DELETED!");
                     });
             });
         });
