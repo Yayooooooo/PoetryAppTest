@@ -4,7 +4,7 @@ Name: Yuting Jing
 
 ## Overview.
 
-These codes can let users add and delete users, authors, poems and poems to their authors' works list. Users can register, login, logout. We can also find poems by poemId, find authors by authorId, find users by userId. In login function, I also made a session-based authentication, which mainly learned from this link: https://medium.com/createdd-notes/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359, though not tested.
+These codes can let users add and delete users, authors, poems and poems to their authors' works list. Users can register, login, logout, give thumbs up and take back the thumbs up to poems and author(thumbs up hasn't tested). We can also find poems by poemId, find authors by authorId, find users by userId. In login function, I also made a session-based authentication, which mainly learned from this link: https://medium.com/createdd-notes/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359, though not tested.
 
 ## API endpoints.
 
