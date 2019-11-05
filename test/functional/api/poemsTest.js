@@ -143,6 +143,13 @@ describe("Poems", () => {
                     .expect([]);
             });
         });
-        
+        describe("when the id is invalid", () => {
+            it("should return confirmation message and delete datastore", () => {
+                return request(server)
+                    .delete("/donations/1100001")
+                    .expect(404)
+                    .expect({});
+            });
+        });
     });
 });
